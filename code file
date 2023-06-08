@@ -1,0 +1,35 @@
+Here's an example implementation of a <Multiselect /> component in JavaScript that renders a multiselect dropdown with checkboxes:
+
+import React, { useState } from 'react';
+
+const Multiselect = ({ value, readonly }) => {
+  const [selectedValues, setSelectedValues] = useState(value);
+
+  const handleCheckboxChange = (event) => {
+    const { value: checkboxValue, checked } = event.target;
+    if (checked) {
+      setSelectedValues([...selectedValues, checkboxValue]);
+    } else {
+      setSelectedValues(selectedValues.filter((val) => val !== checkboxValue));
+    }
+  };
+
+  return (
+    <div>
+      {['val1', 'val2', 'val3', 'val4'].map((option) => (
+        <label key={option}>
+          <input
+            type="checkbox"
+            value={option}
+            checked={selectedValues.includes(option)}
+            onChange={handleCheckboxChange}
+            disabled={readonly}
+          />
+          {option}
+        </label>
+      ))}
+    </div>
+  );
+};
+
+export default Multiselect;
